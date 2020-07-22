@@ -7,9 +7,9 @@ from torch.autograd import Variable
 torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
 
-class SplitArm(nn.Module):
+class SubSpace(nn.Module):
     def __init__(self, nin):
-        super(SplitArm, self).__init__()
+        super(SubSpace, self).__init__()
         self.conv_dws = nn.Conv2d(
             nin, nin, kernel_size=1, stride=1, padding=0, groups=nin
         )
@@ -50,9 +50,9 @@ class SplitArm(nn.Module):
         return out
 
 
-class AlphaBlock(nn.Module):
+class GRAB(nn.Module):
     def __init__(self, nin, nout, h, w, num_splits):
-        super(AlphaBlock, self).__init__()
+        super(GRAB, self).__init__()
 
         assert nin % num_splits == 0
 
@@ -63,7 +63,7 @@ class AlphaBlock(nn.Module):
         self.num_splits = num_splits
 
         self.subspaces = nn.ModuleList(
-            [SplitArm(int(self.nin / self.num_splits)) for i in range(self.num_splits)]
+            [SubSpace(int(self.nin / self.num_splits)) for i in range(self.num_splits)]
         )
 
     def forward(self, x):
@@ -82,4 +82,4 @@ class AlphaBlock(nn.Module):
 
 
 # for debug
-# print(AlphaBlock(64, 64, 112, 112, 4))
+# print(GRAB(64, 64, 112, 112, 4))

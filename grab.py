@@ -8,6 +8,25 @@ torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
 
 class SubSpace(nn.Module):
+    """
+    Subspace class.
+
+    ...
+
+    Attributes
+    ----------
+    nin : int
+        number of input feature volume.
+
+    Methods
+    -------
+    __init__(nin)
+        initialize method.
+    forward(x)
+        forward pass.
+
+    """
+
     def __init__(self, nin):
         super(SubSpace, self).__init__()
         self.conv_dws = nn.Conv2d(
@@ -51,6 +70,37 @@ class SubSpace(nn.Module):
 
 
 class GRAB(nn.Module):
+    """
+    Grouped Attention Block having multiple (num_splits) Subspaces.
+
+    ...
+
+    Attributes
+    ----------
+    nin : int
+        number of input feature volume.
+
+    nout : int
+        number of output feature maps
+
+    h : int
+        height of a input feature map
+
+    w : int
+        width of a input feature map
+
+    num_splits : int
+        number of subspaces
+
+    Methods
+    -------
+    __init__(nin)
+        initialize method.
+    forward(x)
+        forward pass.
+
+    """
+
     def __init__(self, nin, nout, h, w, num_splits):
         super(GRAB, self).__init__()
 

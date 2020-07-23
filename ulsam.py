@@ -1,8 +1,5 @@
-from collections import OrderedDict
-
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
@@ -69,7 +66,7 @@ class SubSpace(nn.Module):
         return out
 
 
-class GRAB(nn.Module):
+class ULSAM(nn.Module):
     """
     Grouped Attention Block having multiple (num_splits) Subspaces.
 
@@ -102,7 +99,7 @@ class GRAB(nn.Module):
     """
 
     def __init__(self, nin, nout, h, w, num_splits):
-        super(GRAB, self).__init__()
+        super(ULSAM, self).__init__()
 
         assert nin % num_splits == 0
 
@@ -132,4 +129,4 @@ class GRAB(nn.Module):
 
 
 # for debug
-# print(GRAB(64, 64, 112, 112, 4))
+# print(ULSAM(64, 64, 112, 112, 4))

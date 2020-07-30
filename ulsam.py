@@ -30,7 +30,7 @@ class SubSpace(nn.Module):
             nin, nin, kernel_size=1, stride=1, padding=0, groups=nin
         )
         self.bn_dws = nn.BatchNorm2d(nin, momentum=0.9)
-        self.relu_dws = nn.ReLU(inplace=True)
+        self.relu_dws = nn.ReLU(inplace=False)
 
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
 
@@ -38,7 +38,7 @@ class SubSpace(nn.Module):
             nin, 1, kernel_size=1, stride=1, padding=0, groups=1
         )
         self.bn_point = nn.BatchNorm2d(1, momentum=0.9)
-        self.relu_point = nn.ReLU(inplace=True)
+        self.relu_point = nn.ReLU(inplace=False)
 
         self.softmax = nn.Softmax(dim=2)
 

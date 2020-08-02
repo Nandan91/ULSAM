@@ -117,13 +117,13 @@ class ULSAM(nn.Module):
         group_size = int(self.nin / self.num_splits)
 
         # split at batch dimension
-        sub_feat = torch.chunk(x, group_size, dim=0)
+        sub_feat = torch.chunk(x, self.num_splits, dim=1)
 
         out = []
         for idx, l in enumerate(self.subspaces):
             out.append(self.subspaces[idx](sub_feat[idx]))
 
-        out = torch.cat(out)
+        out = torch.cat(out, dim=1)
 
         return out
 

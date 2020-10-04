@@ -47,7 +47,7 @@ class SubSpace(nn.Module):
         out = self.bn_dws(out)
         out = self.relu_dws(out)
 
-        out = self.maxpool(x)
+        out = self.maxpool(out)
 
         out = self.conv_point(out)
         out = self.bn_point(out)

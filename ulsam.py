@@ -24,7 +24,7 @@ class SubSpace(nn.Module):
 
     """
 
-    def __init__(self, nin):
+    def __init__(self, nin: int) -> None:
         super(SubSpace, self).__init__()
         self.conv_dws = nn.Conv2d(
             nin, nin, kernel_size=1, stride=1, padding=0, groups=nin
@@ -42,7 +42,7 @@ class SubSpace(nn.Module):
 
         self.softmax = nn.Softmax(dim=2)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         out = self.conv_dws(x)
         out = self.bn_dws(out)
         out = self.relu_dws(out)
@@ -98,7 +98,7 @@ class ULSAM(nn.Module):
 
     """
 
-    def __init__(self, nin, nout, h, w, num_splits):
+    def __init__(self, nin: int, nout: int, h: int, w: int, num_splits: int) -> None:
         super(ULSAM, self).__init__()
 
         assert nin % num_splits == 0
@@ -113,7 +113,7 @@ class ULSAM(nn.Module):
             [SubSpace(int(self.nin / self.num_splits)) for i in range(self.num_splits)]
         )
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         group_size = int(self.nin / self.num_splits)
 
         # split at batch dimension
